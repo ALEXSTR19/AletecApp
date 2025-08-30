@@ -1,9 +1,11 @@
 import React from 'react'
 import Navbar from './components/Navbar'
+import Cotizador from './components/Cotizador'
 
 const services = [
   { id: 'redes', title: 'Redes', desc: 'Diseño, cableado estructurado, Wi‑Fi empresarial y routing seguro.' },
   { id: 'cctv', title: 'CCTV', desc: 'Cámaras IP, NVR/DVR, monitoreo remoto y video‑análisis.' },
+  { id: 'aire', title: 'Aire acondicionado', desc: 'Venta e instalación profesional de mini splits y sistemas centrales.' },
   { id: 'soporte', title: 'Soporte', desc: 'Mantenimiento preventivo/correctivo, Help Desk y continuidad.' }
 ]
 
@@ -22,7 +24,7 @@ export default function App() {
                className="rounded-2xl bg-white/10 backdrop-blur px-5 py-2.5 text-white border border-white/20 hover:bg-white/20 transition">
               WhatsApp
             </a>
-            <a href="#contacto"
+            <a href="#cotizador"
                className="rounded-2xl bg-white text-[#591010] px-5 py-2.5 font-semibold hover:shadow">
               Cotiza ahora
             </a>
@@ -41,6 +43,13 @@ export default function App() {
                 <p className="mt-2 text-neutral-600">{s.desc}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section id="cotizador" className="mt-16">
+          <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">Cotizador</h2>
+          <div className="mt-4">
+            <Cotizador />
           </div>
         </section>
 
