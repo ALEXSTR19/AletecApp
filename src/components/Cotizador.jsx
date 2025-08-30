@@ -1,17 +1,60 @@
 import { useState } from 'react'
+import {
+  VideoCameraIcon,
+  SunIcon,
+  WifiIcon,
+  LifebuoyIcon,
+  HomeIcon,
+  BuildingOfficeIcon,
+  ShieldCheckIcon,
+  WrenchScrewdriverIcon,
+  ComputerDesktopIcon,
+  CheckCircleIcon
+} from '@heroicons/react/24/outline'
 
 const services = [
-  { id: 'cctv', label: 'Instalación CCTV' },
-  { id: 'aire', label: 'Instalación de aire acondicionado' },
-  { id: 'redes', label: 'Redes' },
-  { id: 'soporte', label: 'Soporte' }
+  { id: 'cctv', label: 'Instalación CCTV', icon: VideoCameraIcon },
+  { id: 'aire', label: 'Instalación de aire acondicionado', icon: SunIcon },
+  { id: 'redes', label: 'Redes', icon: WifiIcon },
+  { id: 'soporte', label: 'Soporte', icon: LifebuoyIcon }
 ]
 
 const questions = {
-  cctv: { id: 'cameras', text: '¿Cuántas cámaras necesitas?', options: ['1-4', '5-8', '9+'] },
-  aire: { id: 'capacidad', text: 'Capacidad requerida (BTU)?', options: ['1-2 ton', '2-3 ton', '3+ ton'] },
-  redes: { id: 'tipo', text: 'Tipo de red', options: ['Doméstica', 'Empresarial'] },
-  soporte: { id: 'modalidad', text: 'Tipo de soporte', options: ['Preventivo', 'Correctivo', 'Help Desk'] }
+  cctv: {
+    id: 'cameras',
+    text: '¿Cuántas cámaras necesitas?',
+    options: [
+      { value: '1-4', label: '1-4', icon: VideoCameraIcon },
+      { value: '5-8', label: '5-8', icon: VideoCameraIcon },
+      { value: '9+', label: '9+', icon: VideoCameraIcon }
+    ]
+  },
+  aire: {
+    id: 'capacidad',
+    text: 'Capacidad requerida (BTU)?',
+    options: [
+      { value: '1-2 ton', label: '1-2 ton', icon: SunIcon },
+      { value: '2-3 ton', label: '2-3 ton', icon: SunIcon },
+      { value: '3+ ton', label: '3+ ton', icon: SunIcon }
+    ]
+  },
+  redes: {
+    id: 'tipo',
+    text: 'Tipo de red',
+    options: [
+      { value: 'Doméstica', label: 'Doméstica', icon: HomeIcon },
+      { value: 'Empresarial', label: 'Empresarial', icon: BuildingOfficeIcon }
+    ]
+  },
+  soporte: {
+    id: 'modalidad',
+    text: 'Tipo de soporte',
+    options: [
+      { value: 'Preventivo', label: 'Preventivo', icon: ShieldCheckIcon },
+      { value: 'Correctivo', label: 'Correctivo', icon: WrenchScrewdriverIcon },
+      { value: 'Help Desk', label: 'Help Desk', icon: ComputerDesktopIcon }
+    ]
+  }
 }
 
 const packages = {
@@ -40,13 +83,13 @@ export default function Cotizador() {
     setAnswer('')
   }
 
-  const handleService = (e) => {
-    setService(e.target.value)
+  const handleService = (id) => {
+    setService(id)
     setStep(2)
   }
 
-  const handleAnswer = (e) => {
-    setAnswer(e.target.value)
+  const handleAnswer = (val) => {
+    setAnswer(val)
     setStep(3)
   }
 
@@ -56,16 +99,19 @@ export default function Cotizador() {
         <div>
           <h3 className="text-xl font-semibold">Cotiza tu servicio</h3>
           <p className="mt-2 text-neutral-600">Selecciona un servicio para comenzar.</p>
-          <select
-            className="mt-4 w-full rounded-md border p-2"
-            value={service}
-            onChange={handleService}
-          >
-            <option value="">-- Selecciona --</option>
-            {services.map(s => (
-              <option key={s.id} value={s.id}>{s.label}</option>
+          <div className="mt-6 grid sm:grid-cols-2 gap-4">
+            {services.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => handleService(s.id)}
+                className="flex items-center gap-3 rounded-xl border p-4 text-left hover:border-[#10593e]"
+              >
+                <s.icon className="h-6 w-6 text-[#10593e]" />
+                <span className="font-medium">{s.label}</span>
+              </button>
             ))}
-          </select>
+          </div>
         </div>
       )}
 
@@ -73,16 +119,19 @@ export default function Cotizador() {
         <div>
           <h3 className="text-xl font-semibold">{services.find(s => s.id === service)?.label}</h3>
           <p className="mt-2 text-neutral-600">{questions[service].text}</p>
-          <select
-            className="mt-4 w-full rounded-md border p-2"
-            value={answer}
-            onChange={handleAnswer}
-          >
-            <option value="">-- Selecciona --</option>
+          <div className="mt-6 grid sm:grid-cols-2 gap-4">
             {questions[service].options.map(opt => (
-              <option key={opt} value={opt}>{opt}</option>
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => handleAnswer(opt.value)}
+                className="flex items-center gap-3 rounded-xl border p-4 text-left hover:border-[#10593e]"
+              >
+                <opt.icon className="h-6 w-6 text-[#10593e]" />
+                <span className="font-medium">{opt.label}</span>
+              </button>
             ))}
-          </select>
+          </div>
         </div>
       )}
 
@@ -92,9 +141,12 @@ export default function Cotizador() {
           <p className="mt-2 text-neutral-600">Basado en tus respuestas:</p>
           <ul className="mt-4 space-y-3">
             {(packages[service] || []).map(pkg => (
-              <li key={pkg.id} className="rounded-md border p-3">
-                <p className="font-medium">{pkg.name}</p>
-                <p className="text-sm text-neutral-600">${pkg.price}</p>
+              <li key={pkg.id} className="flex items-center gap-3 rounded-md border p-3">
+                <CheckCircleIcon className="h-5 w-5 text-[#10593e]" />
+                <div>
+                  <p className="font-medium">{pkg.name}</p>
+                  <p className="text-sm text-neutral-600">${pkg.price}</p>
+                </div>
               </li>
             ))}
           </ul>
