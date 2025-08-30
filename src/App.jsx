@@ -5,6 +5,7 @@ import Cotizador from './components/Cotizador'
 const services = [
   { id: 'redes', title: 'Redes', desc: 'Diseño, cableado estructurado, Wi‑Fi empresarial y routing seguro.' },
   { id: 'cctv', title: 'CCTV', desc: 'Cámaras IP, NVR/DVR, monitoreo remoto y video‑análisis.' },
+  { id: 'diseno', title: 'Diseño', desc: 'Diseño web y gráfico que impulsa tu presencia digital.' },
   { id: 'aire', title: 'Aire acondicionado', desc: 'Venta e instalación profesional de mini splits y sistemas centrales.' },
   { id: 'soporte', title: 'Soporte', desc: 'Mantenimiento preventivo/correctivo, Help Desk y continuidad.' }
 ]
@@ -17,7 +18,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-6 py-16">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">Aletec</h1>
           <p className="mt-4 text-lg md:text-xl opacity-90">
-            Soluciones tecnológicas: redes, CCTV y soporte técnico — con enfoque profesional.
+            Soluciones tecnológicas y diseño: redes, CCTV y soporte técnico — con enfoque profesional.
           </p>
           <div className="mt-8 flex gap-3">
             <a href="https://wa.me/527831161033" target="_blank" rel="noreferrer"
@@ -36,7 +37,7 @@ export default function App() {
         <section id="servicios">
           <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">Servicios</h2>
           <p className="text-neutral-600 mt-2">Integración llave en mano con garantía y documentación.</p>
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             {services.map((s) => (
               <div key={s.id} id={s.id} className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
                 <h3 className="text-xl font-semibold">{s.title}</h3>
