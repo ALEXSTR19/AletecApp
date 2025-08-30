@@ -16,7 +16,7 @@ export default function Navbar() {
     <nav className="bg-white border-b border-neutral-200">
       <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between">
         <div className="flex items-center justify-between">
-          <a href="#inicio" className="text-xl font-semibold text-[#591010]">Aletech</a>
+          <a href="#inicio" className="text-xl font-semibold text-[#591010]">Aletec</a>
           <button
             className="md:hidden text-neutral-700"
             onClick={() => setOpen(!open)}
@@ -44,3 +44,4 @@ export default function Navbar() {
     </nav>
   )
 }
+

@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-# AletecApp
-=======
-# Aletech — Web App (Vite + React + Tailwind)
+# Aletec — Web App (Vite + React + Tailwind)
 
 Landing base para la empresa de soluciones tecnológicas (redes, CCTV y soporte).
 Paleta: vino `#591010` y verde `#10593e`.
@@ -35,4 +32,4 @@ npm run preview
 ---
 
 ⚠️ Recuerda reemplazar el WhatsApp y correo por los definitivos.
->>>>>>> 5ee6db3 (feat: starter Aletech (Vite+React+Tailwind))
+
