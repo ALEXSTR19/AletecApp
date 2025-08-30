@@ -5,6 +5,7 @@ const links = [
   { href: '#servicios', label: 'Soluciones' },
   { href: '#redes', label: 'Redes' },
   { href: '#cctv', label: 'CCTV' },
+  { href: '#diseno', label: 'Diseño' },
   { href: '#soporte', label: 'Soporte' },
   { href: '#contacto', label: 'Contacto' }
 ]
