@@ -1,15 +1,17 @@
 import React from 'react'
+import Navbar from './components/Navbar'
 
 const services = [
-  { title: 'Redes', desc: 'Diseño, cableado estructurado, Wi‑Fi empresarial y routing seguro.' },
-  { title: 'CCTV', desc: 'Cámaras IP, NVR/DVR, monitoreo remoto y video‑análisis.' },
-  { title: 'Soporte', desc: 'Mantenimiento preventivo/correctivo, Help Desk y continuidad.' }
+  { id: 'redes', title: 'Redes', desc: 'Diseño, cableado estructurado, Wi‑Fi empresarial y routing seguro.' },
+  { id: 'cctv', title: 'CCTV', desc: 'Cámaras IP, NVR/DVR, monitoreo remoto y video‑análisis.' },
+  { id: 'soporte', title: 'Soporte', desc: 'Mantenimiento preventivo/correctivo, Help Desk y continuidad.' }
 ]
 
 export default function App() {
   return (
     <div>
-      <header className="bg-gradient-to-r from-[#591010] to-[#10593e] text-white">
+      <Navbar />
+      <header id="inicio" className="bg-gradient-to-r from-[#591010] to-[#10593e] text-white">
         <div className="max-w-6xl mx-auto px-6 py-16">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">Aletech</h1>
           <p className="mt-4 text-lg md:text-xl opacity-90">
@@ -34,7 +36,7 @@ export default function App() {
           <p className="text-neutral-600 mt-2">Integración llave en mano con garantía y documentación.</p>
           <div className="grid md:grid-cols-3 gap-6 mt-8">
             {services.map((s) => (
-              <div key={s.title} className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+              <div key={s.id} id={s.id} className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
                 <h3 className="text-xl font-semibold">{s.title}</h3>
                 <p className="mt-2 text-neutral-600">{s.desc}</p>
               </div>
