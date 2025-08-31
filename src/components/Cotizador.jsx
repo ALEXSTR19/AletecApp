@@ -9,7 +9,11 @@ import {
   ShieldCheckIcon,
   WrenchScrewdriverIcon,
   ComputerDesktopIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  EyeIcon,
+  QuestionMarkCircleIcon,
+  ExclamationTriangleIcon,
+  MapPinIcon
 } from '@heroicons/react/24/outline'
 
 const services = [
@@ -55,6 +59,122 @@ const questions = {
       { value: 'Diagnóstico', label: 'Diagnóstico', icon: ComputerDesktopIcon }
     ]
   }
+  cctv: [
+    {
+      id: 'ubicacion',
+      text: '¿Dónde necesitas tus cámaras?',
+      options: [
+        { value: 'Interior', label: 'Interior', icon: HomeIcon },
+        { value: 'Exterior', label: 'Exterior', icon: BuildingOfficeIcon },
+        { value: 'Interior y exterior', label: 'Interior y exterior', icon: VideoCameraIcon }
+      ]
+    },
+    {
+      id: 'cameras',
+      text: '¿Cuántas cámaras necesitas?',
+      options: [
+        { value: '1-4', label: '1-4', icon: VideoCameraIcon },
+        { value: '5-8', label: '5-8', icon: VideoCameraIcon },
+        { value: '9+', label: '9+', icon: VideoCameraIcon }
+      ]
+    },
+    {
+      id: 'motivo',
+      text: '¿A raíz de qué surgió tu necesidad?',
+      options: [
+        { value: 'Robo', label: 'Robo', icon: ExclamationTriangleIcon },
+        { value: 'Monitoreo', label: 'Monitoreo general', icon: EyeIcon },
+        { value: 'Otro', label: 'Otro', icon: QuestionMarkCircleIcon }
+      ]
+    },
+    {
+      id: 'instalacion',
+      text: '¿Quieres agregar cámaras a tu grabador existente o es una instalación nueva?',
+      options: [
+        { value: 'Agregar a grabador', label: 'Agregar a grabador existente', icon: ComputerDesktopIcon },
+        { value: 'Instalación nueva', label: 'Instalación nueva', icon: WrenchScrewdriverIcon }
+      ]
+    }
+  ],
+  aire: [
+    {
+      id: 'capacidad',
+      text: 'Capacidad requerida (BTU)?',
+      options: [
+        { value: '1-2 ton', label: '1-2 ton', icon: SunIcon },
+        { value: '2-3 ton', label: '2-3 ton', icon: SunIcon },
+        { value: '3+ ton', label: '3+ ton', icon: SunIcon }
+      ]
+    },
+    {
+      id: 'region',
+      text: '¿En qué región se instalará?',
+      options: [
+        { value: 'Tuxpan', label: 'Tuxpan', icon: MapPinIcon },
+        { value: 'Poza Rica', label: 'Poza Rica', icon: MapPinIcon },
+        { value: 'Naranjos', label: 'Naranjos', icon: MapPinIcon },
+        { value: 'Cerro Azul', label: 'Cerro Azul', icon: MapPinIcon },
+        { value: 'Tamiahua', label: 'Tamiahua', icon: MapPinIcon },
+        { value: 'Santiago de la Peña', label: 'Santiago de la Peña', icon: MapPinIcon },
+        { value: 'Otra', label: 'Otra', icon: MapPinIcon }
+      ]
+    },
+    {
+      id: 'nivel',
+      text: '¿En qué nivel se instalará?',
+      options: [
+        { value: 'Primera planta', label: 'Primera planta', icon: BuildingOfficeIcon },
+        { value: 'Segunda planta', label: 'Segunda planta', icon: BuildingOfficeIcon },
+        { value: 'Tercera planta', label: 'Tercera planta', icon: BuildingOfficeIcon }
+      ]
+    },
+    {
+      id: 'electrica',
+      text: '¿Cuentas con instalación eléctrica adecuada?',
+      options: [
+        { value: 'Sí', label: 'Sí', icon: CheckCircleIcon },
+        {
+          value: 'No, se recomienda línea independiente',
+          label: 'No, se recomienda línea independiente con pastilla dedicada',
+          icon: ExclamationTriangleIcon
+        }
+      ]
+    },
+    {
+      id: 'unidad',
+      text: '¿Dónde se colocará la unidad exterior?',
+      options: [
+        { value: 'Azotea (base y anclajes)', label: 'Azotea (incluir base, soportes y anclajes)', icon: HomeIcon },
+        { value: 'Piso (base y fijaciones)', label: 'Piso (contemplar base y fijaciones)', icon: HomeIcon },
+        {
+          value: 'Pared (soportes adecuados)',
+          label: 'Anclada en pared (soportes y tornillería)',
+          icon: BuildingOfficeIcon
+        }
+      ]
+    }
+  ],
+  redes: [
+    {
+      id: 'tipo',
+      text: 'Tipo de red',
+      options: [
+        { value: 'Doméstica', label: 'Doméstica', icon: HomeIcon },
+        { value: 'Empresarial', label: 'Empresarial', icon: BuildingOfficeIcon }
+      ]
+    }
+  ],
+  soporte: [
+    {
+      id: 'modalidad',
+      text: 'Tipo de soporte',
+      options: [
+        { value: 'Preventivo', label: 'Preventivo', icon: ShieldCheckIcon },
+        { value: 'Correctivo', label: 'Correctivo', icon: WrenchScrewdriverIcon },
+        { value: 'Help Desk', label: 'Help Desk', icon: ComputerDesktopIcon }
+      ]
+    }
+  ]
 }
 
 const packages = {
@@ -77,24 +197,35 @@ export default function Cotizador() {
   const [service, setService] = useState('')
   const [answer, setAnswer] = useState('')
   const [details, setDetails] = useState({ equipo: '', modelo: '', reparar: '', descripcion: '' })
+  const [questionIndex, setQuestionIndex] = useState(0)
+  const [answers, setAnswers] = useState({})
 
   const reset = () => {
     setStep(1)
     setService('')
     setAnswer('')
     setDetails({ equipo: '', modelo: '', reparar: '', descripcion: '' })
+    setQuestionIndex(0)
+    setAnswers({})
   }
 
   const handleService = (id) => {
     setService(id)
     setAnswer('')
     setDetails({ equipo: '', modelo: '', reparar: '', descripcion: '' })
+    setQuestionIndex(0)
+    setAnswers({})
     setStep(2)
   }
 
   const handleAnswer = (val) => {
-    setAnswer(val)
-    setStep(3)
+    const currentQ = questions[service][questionIndex]
+    setAnswers(prev => ({ ...prev, [currentQ.id]: val }))
+    if (questionIndex < questions[service].length - 1) {
+      setQuestionIndex(questionIndex + 1)
+    } else {
+      setStep(3)
+    }
   }
 
   return (
@@ -122,9 +253,9 @@ export default function Cotizador() {
       {step === 2 && (
         <div>
           <h3 className="text-xl font-semibold">{services.find(s => s.id === service)?.label}</h3>
-          <p className="mt-2 text-neutral-600">{questions[service].text}</p>
+          <p className="mt-2 text-neutral-600">{questions[service][questionIndex].text}</p>
           <div className="mt-6 grid sm:grid-cols-2 gap-4">
-            {questions[service].options.map(opt => (
+            {questions[service][questionIndex].options.map(opt => (
               <button
                 key={opt.value}
                 type="button"
