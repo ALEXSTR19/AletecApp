@@ -21,7 +21,7 @@ export default function App() {
             Soluciones tecnológicas y diseño: redes, CCTV y soporte técnico — con enfoque profesional.
           </p>
           <div className="mt-8 flex gap-3">
-            <a href="https://wa.me/527831161033" target="_blank" rel="noreferrer"
+            <a href="https://wa.me/527838315029" target="_blank" rel="noreferrer"
                className="rounded-2xl bg-white/10 backdrop-blur px-5 py-2.5 text-white border border-white/20 hover:bg-white/20 transition">
               WhatsApp
             </a>
@@ -58,8 +58,8 @@ export default function App() {
           <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">Contacto</h2>
           <div className="mt-4 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
             <p className="text-neutral-700">
-              Tel/WhatsApp: <a className="underline" href="https://wa.me/527831161033">783 116 1033</a><br />
-              Email: contacto@aletec.mx (ejemplo)
+              WhatsApp: <a className="underline" href="https://wa.me/527838315029">783 83 150 29</a> (solo WhatsApp)<br />
+              Email: <a className="underline" href="mailto:aletec.soluciones.2025@gmail.com">aletec.soluciones.2025@gmail.com</a>
             </p>
           </div>
         </section>
