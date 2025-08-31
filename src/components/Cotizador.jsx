@@ -48,11 +48,11 @@ const questions = {
   },
   soporte: {
     id: 'modalidad',
-    text: 'Tipo de soporte',
+    text: '¿Qué tipo de soporte necesitas?',
     options: [
-      { value: 'Preventivo', label: 'Preventivo', icon: ShieldCheckIcon },
-      { value: 'Correctivo', label: 'Correctivo', icon: WrenchScrewdriverIcon },
-      { value: 'Help Desk', label: 'Help Desk', icon: ComputerDesktopIcon }
+      { value: 'Preventivo', label: 'Mantenimiento preventivo', icon: ShieldCheckIcon },
+      { value: 'Correctivo', label: 'Mantenimiento correctivo', icon: WrenchScrewdriverIcon },
+      { value: 'Diagnóstico', label: 'Diagnóstico', icon: ComputerDesktopIcon }
     ]
   }
 }
@@ -76,15 +76,19 @@ export default function Cotizador() {
   const [step, setStep] = useState(1)
   const [service, setService] = useState('')
   const [answer, setAnswer] = useState('')
+  const [details, setDetails] = useState({ equipo: '', modelo: '', reparar: '', descripcion: '' })
 
   const reset = () => {
     setStep(1)
     setService('')
     setAnswer('')
+    setDetails({ equipo: '', modelo: '', reparar: '', descripcion: '' })
   }
 
   const handleService = (id) => {
     setService(id)
+    setAnswer('')
+    setDetails({ equipo: '', modelo: '', reparar: '', descripcion: '' })
     setStep(2)
   }
 
@@ -135,7 +139,99 @@ export default function Cotizador() {
         </div>
       )}
 
-      {step === 3 && (
+      {step === 3 && service === 'soporte' && (
+        <div>
+          <h3 className="text-xl font-semibold">Detalles de soporte</h3>
+          {answer === 'Correctivo' && (
+            <div className="mt-4 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-neutral-700">¿Qué necesitas reparar?</label>
+                <input
+                  type="text"
+                  value={details.reparar}
+                  onChange={e => setDetails({ ...details, reparar: e.target.value })}
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-neutral-700">Describe el problema</label>
+                <textarea
+                  value={details.descripcion}
+                  onChange={e => setDetails({ ...details, descripcion: e.target.value })}
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                />
+              </div>
+            </div>
+          )}
+          {answer === 'Preventivo' && (
+            <div className="mt-4 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-neutral-700">¿Tu equipo es laptop o escritorio?</label>
+                <select
+                  value={details.equipo}
+                  onChange={e => setDetails({ ...details, equipo: e.target.value })}
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                >
+                  <option value="">Seleccione</option>
+                  <option value="Laptop">Laptop</option>
+                  <option value="Escritorio">Escritorio</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-neutral-700">Modelo</label>
+                <input
+                  type="text"
+                  value={details.modelo}
+                  onChange={e => setDetails({ ...details, modelo: e.target.value })}
+                  className="mt-1 w-full rounded-md border px-3 py-2"
+                />
+              </div>
+            </div>
+          )}
+          {answer === 'Diagnóstico' && (
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-neutral-700">Describe el problema</label>
+              <textarea
+                value={details.descripcion}
+                onChange={e => setDetails({ ...details, descripcion: e.target.value })}
+                className="mt-1 w-full rounded-md border px-3 py-2"
+              />
+            </div>
+          )}
+          <button
+            className="mt-6 text-sm underline"
+            onClick={() => setStep(4)}
+          >
+            Continuar
+          </button>
+        </div>
+      )}
+
+      {step === 3 && service !== 'soporte' && (
+        <div>
+          <h3 className="text-xl font-semibold">Recomendaciones</h3>
+          <p className="mt-2 text-neutral-600">Basado en tus respuestas:</p>
+          <ul className="mt-4 space-y-3">
+            {(packages[service] || []).map(pkg => (
+              <li key={pkg.id} className="flex items-center gap-3 rounded-md border p-3">
+                <CheckCircleIcon className="h-5 w-5 text-[#10593e]" />
+                <div>
+                  <p className="font-medium">{pkg.name}</p>
+                  <p className="text-sm text-neutral-600">${pkg.price}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <button
+            className="mt-6 text-sm underline"
+            onClick={reset}
+          >
+            Empezar de nuevo
+          </button>
+        </div>
+      )}
+
+      {step === 4 && service === 'soporte' && (
         <div>
           <h3 className="text-xl font-semibold">Recomendaciones</h3>
           <p className="mt-2 text-neutral-600">Basado en tus respuestas:</p>
