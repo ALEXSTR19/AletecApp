@@ -31,5 +31,8 @@ npm run preview
 
 ---
 
-⚠️ Recuerda reemplazar el WhatsApp y correo por los definitivos.
+**Contacto**
+
+- WhatsApp: [783 83 150 29](https://wa.me/527838315029) (solo WhatsApp)
+- Email: [aletec.soluciones.2025@gmail.com](mailto:aletec.soluciones.2025@gmail.com)
 
