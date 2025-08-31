@@ -9,7 +9,10 @@ import {
   ShieldCheckIcon,
   WrenchScrewdriverIcon,
   ComputerDesktopIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  EyeIcon,
+  QuestionMarkCircleIcon,
+  ExclamationTriangleIcon
 } from '@heroicons/react/24/outline'
 
 const services = [
@@ -20,41 +23,75 @@ const services = [
 ]
 
 const questions = {
-  cctv: {
-    id: 'cameras',
-    text: '¿Cuántas cámaras necesitas?',
-    options: [
-      { value: '1-4', label: '1-4', icon: VideoCameraIcon },
-      { value: '5-8', label: '5-8', icon: VideoCameraIcon },
-      { value: '9+', label: '9+', icon: VideoCameraIcon }
-    ]
-  },
-  aire: {
-    id: 'capacidad',
-    text: 'Capacidad requerida (BTU)?',
-    options: [
-      { value: '1-2 ton', label: '1-2 ton', icon: SunIcon },
-      { value: '2-3 ton', label: '2-3 ton', icon: SunIcon },
-      { value: '3+ ton', label: '3+ ton', icon: SunIcon }
-    ]
-  },
-  redes: {
-    id: 'tipo',
-    text: 'Tipo de red',
-    options: [
-      { value: 'Doméstica', label: 'Doméstica', icon: HomeIcon },
-      { value: 'Empresarial', label: 'Empresarial', icon: BuildingOfficeIcon }
-    ]
-  },
-  soporte: {
-    id: 'modalidad',
-    text: 'Tipo de soporte',
-    options: [
-      { value: 'Preventivo', label: 'Preventivo', icon: ShieldCheckIcon },
-      { value: 'Correctivo', label: 'Correctivo', icon: WrenchScrewdriverIcon },
-      { value: 'Help Desk', label: 'Help Desk', icon: ComputerDesktopIcon }
-    ]
-  }
+  cctv: [
+    {
+      id: 'ubicacion',
+      text: '¿Dónde necesitas tus cámaras?',
+      options: [
+        { value: 'Interior', label: 'Interior', icon: HomeIcon },
+        { value: 'Exterior', label: 'Exterior', icon: BuildingOfficeIcon },
+        { value: 'Interior y exterior', label: 'Interior y exterior', icon: VideoCameraIcon }
+      ]
+    },
+    {
+      id: 'cameras',
+      text: '¿Cuántas cámaras necesitas?',
+      options: [
+        { value: '1-4', label: '1-4', icon: VideoCameraIcon },
+        { value: '5-8', label: '5-8', icon: VideoCameraIcon },
+        { value: '9+', label: '9+', icon: VideoCameraIcon }
+      ]
+    },
+    {
+      id: 'motivo',
+      text: '¿A raíz de qué surgió tu necesidad?',
+      options: [
+        { value: 'Robo', label: 'Robo', icon: ExclamationTriangleIcon },
+        { value: 'Monitoreo', label: 'Monitoreo general', icon: EyeIcon },
+        { value: 'Otro', label: 'Otro', icon: QuestionMarkCircleIcon }
+      ]
+    },
+    {
+      id: 'instalacion',
+      text: '¿Quieres agregar cámaras a tu grabador existente o es una instalación nueva?',
+      options: [
+        { value: 'Agregar a grabador', label: 'Agregar a grabador existente', icon: ComputerDesktopIcon },
+        { value: 'Instalación nueva', label: 'Instalación nueva', icon: WrenchScrewdriverIcon }
+      ]
+    }
+  ],
+  aire: [
+    {
+      id: 'capacidad',
+      text: 'Capacidad requerida (BTU)?',
+      options: [
+        { value: '1-2 ton', label: '1-2 ton', icon: SunIcon },
+        { value: '2-3 ton', label: '2-3 ton', icon: SunIcon },
+        { value: '3+ ton', label: '3+ ton', icon: SunIcon }
+      ]
+    }
+  ],
+  redes: [
+    {
+      id: 'tipo',
+      text: 'Tipo de red',
+      options: [
+        { value: 'Doméstica', label: 'Doméstica', icon: HomeIcon },
+        { value: 'Empresarial', label: 'Empresarial', icon: BuildingOfficeIcon }
+      ]
+    }
+  ],
+  soporte: [
+    {
+      id: 'modalidad',
+      text: 'Tipo de soporte',
+      options: [
+        { value: 'Preventivo', label: 'Preventivo', icon: ShieldCheckIcon },
+        { value: 'Correctivo', label: 'Correctivo', icon: WrenchScrewdriverIcon },
+        { value: 'Help Desk', label: 'Help Desk', icon: ComputerDesktopIcon }
+      ]
+    }
+  ]
 }
 
 const packages = {
@@ -75,22 +112,31 @@ const packages = {
 export default function Cotizador() {
   const [step, setStep] = useState(1)
   const [service, setService] = useState('')
-  const [answer, setAnswer] = useState('')
+  const [questionIndex, setQuestionIndex] = useState(0)
+  const [answers, setAnswers] = useState({})
 
   const reset = () => {
     setStep(1)
     setService('')
-    setAnswer('')
+    setQuestionIndex(0)
+    setAnswers({})
   }
 
   const handleService = (id) => {
     setService(id)
+    setQuestionIndex(0)
+    setAnswers({})
     setStep(2)
   }
 
   const handleAnswer = (val) => {
-    setAnswer(val)
-    setStep(3)
+    const currentQ = questions[service][questionIndex]
+    setAnswers(prev => ({ ...prev, [currentQ.id]: val }))
+    if (questionIndex < questions[service].length - 1) {
+      setQuestionIndex(questionIndex + 1)
+    } else {
+      setStep(3)
+    }
   }
 
   return (
@@ -118,9 +164,9 @@ export default function Cotizador() {
       {step === 2 && (
         <div>
           <h3 className="text-xl font-semibold">{services.find(s => s.id === service)?.label}</h3>
-          <p className="mt-2 text-neutral-600">{questions[service].text}</p>
+          <p className="mt-2 text-neutral-600">{questions[service][questionIndex].text}</p>
           <div className="mt-6 grid sm:grid-cols-2 gap-4">
-            {questions[service].options.map(opt => (
+            {questions[service][questionIndex].options.map(opt => (
               <button
                 key={opt.value}
                 type="button"
