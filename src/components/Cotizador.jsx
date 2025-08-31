@@ -24,41 +24,6 @@ const services = [
 ]
 
 const questions = {
-  cctv: {
-    id: 'cameras',
-    text: '¿Cuántas cámaras necesitas?',
-    options: [
-      { value: '1-4', label: '1-4', icon: VideoCameraIcon },
-      { value: '5-8', label: '5-8', icon: VideoCameraIcon },
-      { value: '9+', label: '9+', icon: VideoCameraIcon }
-    ]
-  },
-  aire: {
-    id: 'capacidad',
-    text: 'Capacidad requerida (BTU)?',
-    options: [
-      { value: '1-2 ton', label: '1-2 ton', icon: SunIcon },
-      { value: '2-3 ton', label: '2-3 ton', icon: SunIcon },
-      { value: '3+ ton', label: '3+ ton', icon: SunIcon }
-    ]
-  },
-  redes: {
-    id: 'tipo',
-    text: 'Tipo de red',
-    options: [
-      { value: 'Doméstica', label: 'Doméstica', icon: HomeIcon },
-      { value: 'Empresarial', label: 'Empresarial', icon: BuildingOfficeIcon }
-    ]
-  },
-  soporte: {
-    id: 'modalidad',
-    text: '¿Qué tipo de soporte necesitas?',
-    options: [
-      { value: 'Preventivo', label: 'Mantenimiento preventivo', icon: ShieldCheckIcon },
-      { value: 'Correctivo', label: 'Mantenimiento correctivo', icon: WrenchScrewdriverIcon },
-      { value: 'Diagnóstico', label: 'Diagnóstico', icon: ComputerDesktopIcon }
-    ]
-  }
   cctv: [
     {
       id: 'ubicacion',
@@ -155,6 +120,17 @@ const questions = {
     }
   ],
   redes: [
+    {
+      id: 'accion',
+      text: '¿Podrías indicarme qué deseas hacer con tu red? Puedo ayudarte con:',
+      options: [
+        { value: 'Mejora de red WiFi', label: 'Mejora de red WiFi', icon: WifiIcon },
+        { value: 'Ampliación de red WiFi', label: 'Ampliación de red WiFi', icon: WifiIcon },
+        { value: 'Instalación de red Ethernet doméstica', label: 'Instalación de red Ethernet doméstica', icon: HomeIcon },
+        { value: 'Confección de un cable Ethernet a medida', label: 'Confección de un cable Ethernet a medida', icon: WrenchScrewdriverIcon },
+        { value: 'Solución de red empresarial con puntos de acceso', label: 'Solución de red empresarial con puntos de acceso', icon: BuildingOfficeIcon }
+      ]
+    },
     {
       id: 'tipo',
       text: 'Tipo de red',
