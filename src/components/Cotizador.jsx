@@ -12,7 +12,8 @@ import {
   CheckCircleIcon,
   EyeIcon,
   QuestionMarkCircleIcon,
-  ExclamationTriangleIcon
+  ExclamationTriangleIcon,
+  MapPinIcon
 } from '@heroicons/react/24/outline'
 
 const services = [
@@ -68,6 +69,53 @@ const questions = {
         { value: '1-2 ton', label: '1-2 ton', icon: SunIcon },
         { value: '2-3 ton', label: '2-3 ton', icon: SunIcon },
         { value: '3+ ton', label: '3+ ton', icon: SunIcon }
+      ]
+    },
+    {
+      id: 'region',
+      text: '¿En qué región se instalará?',
+      options: [
+        { value: 'Tuxpan', label: 'Tuxpan', icon: MapPinIcon },
+        { value: 'Poza Rica', label: 'Poza Rica', icon: MapPinIcon },
+        { value: 'Naranjos', label: 'Naranjos', icon: MapPinIcon },
+        { value: 'Cerro Azul', label: 'Cerro Azul', icon: MapPinIcon },
+        { value: 'Tamiahua', label: 'Tamiahua', icon: MapPinIcon },
+        { value: 'Santiago de la Peña', label: 'Santiago de la Peña', icon: MapPinIcon },
+        { value: 'Otra', label: 'Otra', icon: MapPinIcon }
+      ]
+    },
+    {
+      id: 'nivel',
+      text: '¿En qué nivel se instalará?',
+      options: [
+        { value: 'Primera planta', label: 'Primera planta', icon: BuildingOfficeIcon },
+        { value: 'Segunda planta', label: 'Segunda planta', icon: BuildingOfficeIcon },
+        { value: 'Tercera planta', label: 'Tercera planta', icon: BuildingOfficeIcon }
+      ]
+    },
+    {
+      id: 'electrica',
+      text: '¿Cuentas con instalación eléctrica adecuada?',
+      options: [
+        { value: 'Sí', label: 'Sí', icon: CheckCircleIcon },
+        {
+          value: 'No, se recomienda línea independiente',
+          label: 'No, se recomienda línea independiente con pastilla dedicada',
+          icon: ExclamationTriangleIcon
+        }
+      ]
+    },
+    {
+      id: 'unidad',
+      text: '¿Dónde se colocará la unidad exterior?',
+      options: [
+        { value: 'Azotea (base y anclajes)', label: 'Azotea (incluir base, soportes y anclajes)', icon: HomeIcon },
+        { value: 'Piso (base y fijaciones)', label: 'Piso (contemplar base y fijaciones)', icon: HomeIcon },
+        {
+          value: 'Pared (soportes adecuados)',
+          label: 'Anclada en pared (soportes y tornillería)',
+          icon: BuildingOfficeIcon
+        }
       ]
     }
   ],
